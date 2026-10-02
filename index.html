@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>麥香日和 ‧ 職人手作麵包專賣店 | Wheat Field Bakery</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        warm: {
+                            50: '#FDFBF7',
+                            100: '#F7F1E5',
+                            200: '#EBDCBF',
+                            300: '#DEC59A',
+                            400: '#D0AB73',
+                            500: '#C0904E',
+                            600: '#A37237',
+                            700: '#825628',
+                            800: '#623C1B',
+                            900: '#41250E',
+                            950: '#261305'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif TC"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html, body {
+            overflow-x: hidden;
+            background-color: #FDFBF7;
+            color: #41250E;
+            font-family: 'Plus Jakarta Sans', 'Noto Serif TC', sans-serif;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F7F1E5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D0AB73;
+            border-radius: 4px;
+        }
+
+        /* Glassmorphism Effect */
+        .glass-card {
+            background: rgba(255, 253, 247, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(235, 220, 191, 0.8);
+        }
+
+        /* CTA Pulsing & Glow Effects */
+        .cta-glow-pulse {
+            animation: ctaPulse 2.5s infinite ease-in-out;
+        }
+        @keyframes ctaPulse {
+            0%, 100% {
+                box-shadow: 0 0 15px rgba(192, 144, 78, 0.35), 0 0 0 0 rgba(192, 144, 78, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(192, 144, 78, 0.65), 0 0 0 10px rgba(192, 144, 78, 0);
+            }
+        }
+
+        /* CTA Shimmer Sweep */
+        .shimmer-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                60deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.25) 50%,
+                transparent 70%
+            );
+            transform: rotate(30deg) translateX(-100%);
+            animation: shimmerMove 4s infinite;
+        }
+        @keyframes shimmerMove {
+            0% { transform: rotate(30deg) translateX(-100%); }
+            20%, 100% { transform: rotate(30deg) translateX(100%); }
+        }
+
+        /* Parallax Reveal Variants */
+        .parallax-reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .parallax-reveal.reveal-left {
+            transform: translateX(-40px) translateY(20px);
+        }
+        .parallax-reveal.reveal-right {
+            transform: translateX(40px) translateY(20px);
+        }
+        .parallax-reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0) translateX(0) scale(1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative">
+    <!-- Top Scroll Progress Indicator -->
+    <div id="scroll-progress-bar" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-amber-500 via-amber-600 to-warm-800 z-50 transition-all duration-75 w-0"></div>
+
+    <!-- Header Navbar -->
+    <header class="sticky top-0 z-40 bg-warm-50/90 backdrop-blur-md border-b border-warm-200/80 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500 to-warm-800 flex items-center justify-center text-white font-serif font-black text-xl shadow-md group-hover:scale-105 transition-transform">
+                    麥
+                </div>
+                <div>
+                    <span class="font-serif font-bold text-lg text-warm-900 block leading-none">麥香日和 BAKERY</span>
+                    <span class="text-[10px] tracking-widest text-warm-600 font-sans uppercase">Artisanal Bakery & Workshop</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-warm-800">
+                <a href="#menu" class="hover:text-warm-600 transition-colors py-1">職人出爐菜單</a>
+                <a href="#commitments" class="hover:text-warm-600 transition-colors py-1">烘焙工藝與原料</a>
+                <a href="#reviews" class="hover:text-warm-600 transition-colors py-1">食客真實心得</a>
+                <a href="#how-to-order" class="hover:text-warm-600 transition-colors py-1">預訂流程</a>
+                <a href="#pickup-info" class="hover:text-warm-600 transition-colors py-1">門市與冷藏配送</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 rounded-xl bg-warm-100 flex items-center justify-center text-warm-800">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+
+                <!-- Header CTA Button -->
+                <button onclick="toggleCartDrawer(true)" class="shimmer-btn cta-glow-pulse relative px-5 py-2.5 rounded-full bg-warm-800 hover:bg-warm-900 text-warm-50 text-xs font-semibold shadow-lg hover:shadow-xl active:scale-95 transition-all flex items-center gap-2">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                    <span>線上預訂車</span>
+                    <span id="cart-badge-count" class="w-5 h-5 rounded-full bg-amber-400 text-warm-950 font-bold text-[11px] flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobile-nav-menu" class="hidden md:hidden bg-warm-50/95 border-b border-warm-200 px-6 py-4 space-y-3 backdrop-blur-md">
+            <a href="#menu" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-warm-900 py-1 border-b border-warm-200/50">職人出爐菜單</a>
+            <a href="#commitments" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-warm-900 py-1 border-b border-warm-200/50">烘焙工藝與原料</a>
+            <a href="#reviews" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-warm-900 py-1 border-b border-warm-200/50">食客真實心得</a>
+            <a href="#how-to-order" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-warm-900 py-1 border-b border-warm-200/50">預訂流程</a>
+            <a href="#pickup-info" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-warm-900 py-1">門市與冷藏配送</a>
+        </div>
+    </header>
+
+    <!-- Top Announcement Banner -->
+    <div class="bg-gradient-to-r from-warm-800 via-amber-900 to-warm-900 text-amber-100 text-xs py-2 px-4 text-center font-medium flex items-center justify-center gap-2 shadow-inner">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span id="banner-text">今日 14:00 批次麵包現烤熱烈預訂中！冷藏宅配滿 $1,000 免運</span>
+    </div>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative py-12 md:py-20 overflow-hidden bg-gradient-to-b from-warm-50 via-warm-100/40 to-warm-50" id="hero-section">
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    
+                    <div class="lg:col-span-6 space-y-6 text-left parallax-reveal reveal-left">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/90 border border-warm-300 text-warm-800 text-xs font-semibold shadow-sm">
+                            <i data-lucide="flame" class="w-4 h-4 text-amber-600 animate-bounce"></i>
+                            <span id="hero-top-badge">每日現烤出爐 ‧ 嚴選法國AOP奶油與野生酵母</span>
+                        </div>
+
+                        <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-black text-warm-900 leading-tight tracking-tight" id="hero-title">
+                            出爐那一刻的酥脆麥香，<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-warm-800 via-amber-700 to-warm-900" id="hero-subtitle">交織完美的職人烘焙體驗</span>
+                        </h1>
+
+                        <p class="text-warm-700 text-sm sm:text-base leading-relaxed max-w-xl" id="hero-main-desc">
+                            嚴選法國伊斯尼發酵奶油、日本熊本石臼小麥粉與自家培養天然魯邦野生酵母。從穀物酸種歐包、法國千層可頌到極上生吐司，每一口都是對美味與健康的極致堅持。
+                        </p>
+
+                        <!-- Primary CTA Buttons -->
+                        <div class="flex flex-wrap items-center gap-4 pt-2">
+                            <a href="#menu" class="shimmer-btn cta-glow-pulse px-7 py-3.5 rounded-2xl bg-warm-800 hover:bg-warm-900 text-warm-50 font-semibold text-sm shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-2.5">
+                                <span>挑選今日出爐麵包</span>
+                                <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                            </a>
+                            <button onclick="refreshHeroPhoto()" class="px-5 py-3.5 rounded-2xl bg-white hover:bg-warm-100 text-warm-900 border border-warm-300 font-medium text-xs shadow-md hover:shadow-lg active:scale-95 transition-all flex items-center gap-2">
+                                <i data-lucide="image" class="w-4 h-4 text-amber-600" id="hero-cam-icon"></i>
+                                <span>切換出爐麵包實拍</span>
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-4 pt-6 border-t border-warm-200/80 text-center">
+                            <div class="p-2 rounded-2xl hover:bg-white/60 transition">
+                                <p class="font-serif text-2xl sm:text-3xl font-bold text-warm-900">100%</p>
+                                <p class="text-[11px] text-warm-600">天然野生酵母</p>
+                            </div>
+                            <div class="p-2 rounded-2xl hover:bg-white/60 transition">
+                                <p class="font-serif text-2xl sm:text-3xl font-bold text-warm-900">72 hrs</p>
+                                <p class="text-[11px] text-warm-600">低溫低速長時間發酵</p>
+                            </div>
+                            <div class="p-2 rounded-2xl hover:bg-white/60 transition">
+                                <p class="font-serif text-2xl sm:text-3xl font-bold text-warm-900">AOP</p>
+                                <p class="text-[11px] text-warm-600">法國原產地認證奶油</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Visual Card with Dynamic Image Matching -->
+                    <div class="lg:col-span-6 relative parallax-reveal reveal-right">
+                        <div id="hero-tilt-card" class="bg-white p-4 sm:p-5 rounded-3xl shadow-2xl border border-warm-200 transform transition-transform duration-200 ease-out">
+                            <div class="relative h-80 sm:h-96 rounded-2xl overflow-hidden bg-warm-100 flex items-center justify-center shadow-inner group" id="hero-img-box">
+                                <div id="hero-loading" class="hidden absolute inset-0 bg-warm-950/60 backdrop-blur-xs z-20 flex flex-col items-center justify-center text-white p-4 space-y-2">
+                                    <div class="w-8 h-8 border-3 border-amber-300 border-t-transparent rounded-full animate-spin"></div>
+                                    <p class="font-serif text-xs text-warm-100">正在切換今日出爐實拍照...</p>
+                                </div>
+
+                                <img id="hero-toast-img" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=80" onerror="this.src='https://placehold.co/1200x800/EBDCBF/623C1B?text=Bakery+Specialty+Store'" alt="石臼穀物歐式酸種麵包" class="w-full h-full object-cover transition-all duration-500">
+
+                                <!-- Image Dynamic Match Tag -->
+                                <div class="absolute top-3 left-3 z-10 bg-warm-900/85 backdrop-blur-md text-amber-200 text-xs px-3 py-1.5 rounded-xl border border-amber-500/30 font-serif font-bold shadow-md flex items-center gap-1.5">
+                                    <span>🌾</span>
+                                    <span id="hero-img-tag">石臼穀物酸種歐包</span>
+                                </div>
+
+                                <!-- Image Dynamic Detail Overlay -->
+                                <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-warm-950/90 via-warm-950/50 to-transparent p-4 text-white z-10 transition-all">
+                                    <p class="text-[11px] text-amber-300 font-bold tracking-widest uppercase mb-0.5">現烤展示檔期</p>
+                                    <h4 class="font-serif text-base font-bold text-amber-100" id="hero-img-title">經典石臼裸麥穀物酸種麵包</h4>
+                                    <p class="text-[11px] text-warm-200 line-clamp-1 mt-0.5" id="hero-img-desc">外殼酥脆富含豐富葵花籽與麥香，72小時野生魯邦酵母熟成，氣孔漂亮具香濃酸香氣。</p>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 p-3.5 rounded-xl bg-warm-50 border border-warm-200 flex items-center justify-between text-xs">
+                                <div class="flex items-center gap-2 text-warm-800">
+                                    <i data-lucide="clock" class="w-4 h-4 text-amber-600"></i>
+                                    <span>每日雙時段現烤出爐：11:30 & 14:30</span>
+                                </div>
+                                <span class="px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800 font-bold text-[10px]">開放線上預訂</span>
+                            </div>
+                        </div>
+
+                        <!-- Static Badge -->
+                        <div class="absolute -bottom-5 -left-5 bg-gradient-to-br from-warm-800 to-warm-900 text-amber-100 p-3.5 rounded-2xl shadow-xl border border-amber-500/30 font-serif text-xs hidden sm:flex items-center gap-3 z-20">
+                            <span class="text-2xl">✨</span>
+                            <div>
+                                <p class="font-bold text-amber-300" id="hero-badge-title">職人手作 ‧ 現烤出爐</p>
+                                <p class="text-[10px] text-warm-300" id="hero-badge-sub">外酥內軟 ‧ 酥脆聲與奶油香誘惑</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 職人出爐麵包菜單區塊 -->
+        <section id="menu" class="py-16 md:py-24 bg-warm-100/50 border-y border-warm-200 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-10 parallax-reveal">
+                    <span class="text-xs font-bold tracking-widest text-warm-600 uppercase">Bakery Menu</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-warm-900 mt-1">職人手作麵包菜單</h2>
+                    <p class="text-warm-700 text-sm mt-2">嚴選優質歐日進口原料 ‧ 每日限時新鮮排單烘焙 ‧ 支援自取與溫控宅配</p>
+                </div>
+
+                <!-- Product Category Filter Bar -->
+                <div class="flex flex-wrap items-center justify-center gap-2 mb-10 parallax-reveal" id="category-filters">
+                    <button onclick="filterCategory('all')" id="cat-all" class="cat-filter-btn active px-4 py-2 rounded-full border border-warm-800 bg-warm-800 text-white text-xs font-semibold shadow-xs transition">
+                        全部麵包
+                    </button>
+                    <button onclick="filterCategory('歐式酸種')" id="cat-euro" class="cat-filter-btn px-4 py-2 rounded-full border border-warm-300 bg-white hover:bg-warm-100 text-warm-800 text-xs font-medium transition">
+                        🥖 歐式酸種
+                    </button>
+                    <button onclick="filterCategory('千層丹麥')" id="cat-croissant" class="cat-filter-btn px-4 py-2 rounded-full border border-warm-300 bg-white hover:bg-warm-100 text-warm-800 text-xs font-medium transition">
+                        🥐 千層可頌
+                    </button>
+                    <button onclick="filterCategory('極上生吐司')" id="cat-toast" class="cat-filter-btn px-4 py-2 rounded-full border border-warm-300 bg-white hover:bg-warm-100 text-warm-800 text-xs font-medium transition">
+                        🍞 極上生吐司
+                    </button>
+                    <button onclick="filterCategory('日式鹹甜烘焙')" id="cat-japan" class="cat-filter-btn px-4 py-2 rounded-full border border-warm-300 bg-white hover:bg-warm-100 text-warm-800 text-xs font-medium transition">
+                        🧈 日式鹹甜款
+                    </button>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid">
+                    <!-- Products generated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 品質與烘焙承諾 -->
+        <section id="commitments" class="py-16 md:py-24 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12 parallax-reveal">
+                    <span class="text-xs font-bold tracking-widest text-warm-600 uppercase">Bakery Craftsmanship</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-warm-900 mt-1">專注麵包品質的三大堅持</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="parallax-reveal bg-white p-8 rounded-3xl border border-warm-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all text-center space-y-3">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-3xl shadow-inner">
+                            🌾
+                        </div>
+                        <h3 class="font-serif font-bold text-lg text-warm-900">法國AOP奶油與日本小麥粉</h3>
+                        <p class="text-xs text-warm-600 leading-relaxed">
+                            堅持採用頂級法國伊斯尼發酵奶油、日本熊本石臼小麥粉，絕不添加人工香精與廉價油脂。
+                        </p>
+                    </div>
+
+                    <div class="parallax-reveal bg-white p-8 rounded-3xl border border-warm-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all text-center space-y-3" style="transition-delay: 0.15s;">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-3xl shadow-inner">
+                            🧪
+                        </div>
+                        <h3 class="font-serif font-bold text-lg text-warm-900">72小時魯邦野生酵母熟成</h3>
+                        <p class="text-xs text-warm-600 leading-relaxed">
+                            主廚專利培養野生酵母，長時間低溫發酵，孕育自然甘醇的麥香與豐富大氣孔，口感好消化不脹氣。
+                        </p>
+                    </div>
+
+                    <div class="parallax-reveal bg-white p-8 rounded-3xl border border-warm-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all text-center space-y-3" style="transition-delay: 0.3s;">
+                        <div class="w-16 h-16 mx-auto rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-3xl shadow-inner">
+                            🚚
+                        </div>
+                        <h3 class="font-serif font-bold text-lg text-warm-900">當日現烤 ‧ 溫控鎖鮮直送</h3>
+                        <p class="text-xs text-warm-600 leading-relaxed">
+                            出爐冷卻後迅速密封包裝，提供門市自取或黑貓冷藏/冷凍直送，在家加熱復烤完美重現新鮮酥脆。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 食客真實心得區塊 -->
+        <section id="reviews" class="py-16 md:py-20 bg-gradient-to-b from-white via-warm-50/60 to-warm-100/40 border-b border-warm-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Header & Overall Score Summary -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 parallax-reveal">
+                    <div class="space-y-2">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/90 text-amber-900 text-xs font-semibold shadow-xs">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-600"></i>
+                            <span>2,800+ 位麵包愛好者好評推薦</span>
+                        </div>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-warm-900">食客品嚐真實心得</h2>
+                        <p class="text-xs text-warm-600">來自預訂顧客的真實體驗回響 ‧ 滿意度高達 99.6%</p>
+                    </div>
+
+                    <!-- Score Widget & Write Review CTA -->
+                    <div class="flex items-center gap-4 bg-white/90 border border-warm-200 p-4 rounded-2xl shadow-sm">
+                        <div class="text-center pr-4 border-r border-warm-200">
+                            <div class="font-serif text-3xl font-black text-amber-600 leading-none">4.95</div>
+                            <div class="text-[10px] text-amber-500 mt-1">★★★★★</div>
+                        </div>
+                        <div class="text-xs space-y-1">
+                            <p class="font-bold text-warm-900">酥脆口感認證</p>
+                            <p class="text-warm-600 text-[11px]">「跟在巴黎/日本吃到的一模一樣」</p>
+                        </div>
+                        <button onclick="openReviewModal()" class="ml-2 px-4 py-2.5 rounded-xl bg-warm-800 hover:bg-warm-900 text-warm-50 text-xs font-semibold shadow-md active:scale-95 transition flex items-center gap-1.5">
+                            <i data-lucide="edit-3" class="w-3.5 h-3.5 text-amber-300"></i>
+                            <span>撰寫評價</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Review Filter Pills -->
+                <div class="flex flex-wrap items-center gap-2.5 mb-8 parallax-reveal" id="review-filters">
+                    <button onclick="filterReviews('all')" id="rf-all" class="review-filter-btn active px-4 py-2 rounded-full border border-warm-800 bg-warm-800 text-white text-xs font-semibold shadow-xs transition">
+                        全部評價 (<span id="count-all">6</span>)
+                    </button>
+                    <button onclick="filterReviews('經典裸麥酸種麵包')" class="review-filter-btn px-4 py-2 rounded-full border border-warm-300 bg-white hover:bg-warm-100 text-warm-800 text-xs font-medium transition">
+                        🥖 裸麥酸種
+                    </button>
+                    <button onclick="filterReviews('法國蜂巢千層可頌')" class="review-filter-btn px-4 py-2 rounded-full border border-warm-300 bg-white hover:bg-warm-100 text-warm-800 text-xs font-medium transition">
+                        🥐 千層可頌
+                    </button>
+                    <button onclick="filterReviews('岩鹽發酵奶油鹽可頌')" class="review-filter-btn px-4 py-2 rounded-full border border-warm-300 bg-white hover:bg-warm-100 text-warm-800 text-xs font-medium transition">
+                        🧈 鹽可頌
+                    </button>
+                    <button onclick="filterReviews('極上北海道生吐司')" class="review-filter-btn px-4 py-2 rounded-full border border-warm-300 bg-white hover:bg-warm-100 text-warm-800 text-xs font-medium transition">
+                        🍞 生吐司
+                    </button>
+                </div>
+
+                <!-- Reviews Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="reviews-container">
+                    <!-- Dynamically populated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 預訂流程說明 -->
+        <section id="how-to-order" class="py-16 md:py-24 bg-warm-900 text-white relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12 parallax-reveal">
+                    <span class="text-xs font-bold tracking-widest text-amber-400 uppercase">Ordering Steps</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-amber-100 mt-1">簡單 3 步驟預訂出爐麵包</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="parallax-reveal bg-warm-950/60 p-7 rounded-3xl border border-warm-700/60 space-y-3 relative hover:border-amber-500/50 transition">
+                        <span class="text-4xl font-serif font-bold text-amber-500 block">01</span>
+                        <h4 class="font-serif font-bold text-lg text-amber-200">線上挑選麵包品項</h4>
+                        <p class="text-xs text-warm-300 leading-relaxed">
+                            選擇喜歡的歐法、可頌或生吐司，並依據需求選擇「整顆/切片」或「復烤享用組」。
+                        </p>
+                    </div>
+
+                    <div class="parallax-reveal bg-warm-950/60 p-7 rounded-3xl border border-warm-700/60 space-y-3 relative hover:border-amber-500/50 transition" style="transition-delay: 0.15s;">
+                        <span class="text-4xl font-serif font-bold text-amber-500 block">02</span>
+                        <h4 class="font-serif font-bold text-lg text-amber-200">指定出爐時段與配送</h4>
+                        <p class="text-xs text-warm-300 leading-relaxed">
+                            選擇方便前往的門市自取時間（11:30 或 14:30），或選擇黑貓冷藏配送到府。
+                        </p>
+                    </div>
+
+                    <div class="parallax-reveal bg-warm-950/60 p-7 rounded-3xl border border-warm-700/60 space-y-3 relative hover:border-amber-500/50 transition" style="transition-delay: 0.3s;">
+                        <span class="text-4xl font-serif font-bold text-amber-500 block">03</span>
+                        <h4 class="font-serif font-bold text-lg text-amber-200">完成預訂 ‧ 烘焙師現烤</h4>
+                        <p class="text-xs text-warm-300 leading-relaxed">
+                            支援 LINE Pay、信用卡或門市付款。烘焙師將依訂單於出爐前完成製作！
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 門市與宅配資訊 -->
+        <section id="pickup-info" class="py-16 md:py-24 bg-warm-100/50 border-t border-warm-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-5 space-y-4 parallax-reveal">
+                        <span class="text-xs font-bold tracking-widest text-warm-600 uppercase">Pickup Locations</span>
+                        <h2 class="font-serif text-3xl font-bold text-warm-900">烘焙坊門市資訊</h2>
+                        <p class="text-xs text-warm-700 leading-relaxed">
+                            歡迎現場體驗熱氣騰騰的麥香！提供預約自取快速取件服務。
+                        </p>
+
+                        <div class="space-y-3 pt-2 text-xs">
+                            <div class="p-4 rounded-2xl bg-white border border-warm-200 shadow-sm space-y-1">
+                                <p class="font-serif font-bold text-warm-900 text-sm">📍 台北敦南旗艦店 Flagship</p>
+                                <p class="text-warm-600">地址：台北市大安區敦化南路一段 188 號</p>
+                                <p class="text-warm-600">營業時間：10:30 - 20:30 (每日出爐: 11:30, 14:30)</p>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-white border border-warm-200 shadow-sm space-y-1">
+                                <p class="font-serif font-bold text-warm-900 text-sm">📍 台中草悟道概念店 Taichung Store</p>
+                                <p class="text-warm-600">地址：台中市西區公益路二段 66 號</p>
+                                <p class="text-warm-600">營業時間：11:00 - 20:00 (每日出爐: 11:30, 14:30)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-warm-200 shadow-lg space-y-4 parallax-reveal">
+                        <h3 class="font-serif font-bold text-xl text-warm-900">🥐 烘焙麵包保存與復烤教學</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-warm-700">
+                            <div class="p-4 rounded-2xl bg-warm-50 border border-warm-200/80 space-y-1">
+                                <span class="font-bold text-warm-900 block">可頌與丹麥類</span>
+                                <p>常溫保存 2 天。烤箱預熱 170℃ 復烤 2-3 分鐘，即可重現千層蜂巢極致酥脆感。</p>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-warm-50 border border-warm-200/80 space-y-1">
+                                <span class="font-bold text-warm-900 block">歐式酸種與生吐司</span>
+                                <p>切片後密封冷凍可保存 14 天。無需解凍，表面噴少許水霧，200℃ 烤 3-4 分鐘即可外酥內軟。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Mobile Bottom Fixed Sticky CTA -->
+    <div class="fixed bottom-0 inset-x-0 bg-warm-950/95 backdrop-blur-md border-t border-warm-800 p-3 z-30 md:hidden flex items-center justify-between shadow-2xl">
+        <div class="pl-2">
+            <span class="text-[10px] text-warm-400 block leading-tight">每日現烤數量有限</span>
+            <span class="font-serif font-bold text-xs text-amber-200">麥香日和 ‧ 即時預訂</span>
+        </div>
+        <button onclick="toggleCartDrawer(true)" class="shimmer-btn cta-glow-pulse px-6 py-2.5 rounded-full bg-amber-500 text-warm-950 font-bold text-xs shadow-lg flex items-center gap-2 active:scale-95 transition-transform">
+            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+            <span>查看預訂車</span>
+            <span id="mobile-cart-badge" class="w-4 h-4 rounded-full bg-warm-950 text-amber-300 font-bold text-[10px] flex items-center justify-center">0</span>
+        </button>
+    </div>
+
+    <!-- Cart Overlay & Drawer -->
+    <div id="cart-drawer-overlay" onclick="toggleCartDrawer(false)" class="fixed inset-0 bg-warm-950/60 backdrop-blur-xs z-50 transition-opacity opacity-0 pointer-events-none"></div>
+
+    <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out">
+        <!-- Header -->
+        <div class="p-5 border-b border-warm-200 flex items-center justify-between bg-warm-50">
+            <div class="flex items-center gap-2">
+                <i data-lucide="shopping-bag" class="w-5 h-5 text-warm-800"></i>
+                <h3 class="font-serif font-bold text-lg text-warm-900">麵包預訂購物車</h3>
+            </div>
+            <button onclick="toggleCartDrawer(false)" class="w-8 h-8 rounded-full bg-warm-100 hover:bg-warm-200 flex items-center justify-center text-warm-800 transition">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+        </div>
+
+        <!-- Items List -->
+        <div class="flex-grow overflow-y-auto p-5 space-y-4" id="cart-items-container">
+            <!-- Dynamic Cart Items -->
+        </div>
+
+        <!-- Checkout Form & Summary -->
+        <div class="p-5 border-t border-warm-200 bg-warm-50 space-y-4">
+            <!-- Delivery Options -->
+            <div class="space-y-2">
+                <label class="text-xs font-bold text-warm-900 block">取貨方式</label>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                    <button type="button" onclick="setDeliveryMethod('pickup')" id="btn-method-pickup" class="p-2.5 rounded-xl border border-warm-800 bg-warm-800 text-white font-semibold flex items-center justify-center gap-1.5 transition">
+                        <i data-lucide="store" class="w-3.5 h-3.5"></i>
+                        門市自取
+                    </button>
+                    <button type="button" onclick="setDeliveryMethod('express')" id="btn-method-express" class="p-2.5 rounded-xl border border-warm-300 bg-white text-warm-800 font-semibold flex items-center justify-center gap-1.5 transition">
+                        <i data-lucide="truck" class="w-3.5 h-3.5"></i>
+                        冷藏宅配 (+ $160)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Customer Details Inputs -->
+            <div class="space-y-2 text-xs">
+                <input type="text" id="cust-name" placeholder="訂購人姓名" class="w-full px-3.5 py-2.5 rounded-xl border border-warm-300 focus:outline-none focus:border-warm-600 transition">
+                <input type="tel" id="cust-phone" placeholder="聯絡電話 (例：0912345678)" class="w-full px-3.5 py-2.5 rounded-xl border border-warm-300 focus:outline-none focus:border-warm-600 transition">
+                
+                <div id="pickup-store-select-wrap">
+                    <select id="cust-store" class="w-full px-3.5 py-2.5 rounded-xl border border-warm-300 focus:outline-none focus:border-warm-600 bg-white transition">
+                        <option value="台北敦南旗艦店">取貨門市：台北敦南旗艦店</option>
+                        <option value="台中草悟道概念店">取貨門市：台中草悟道概念店</option>
+                    </select>
+                </div>
+
+                <div id="express-address-wrap" class="hidden">
+                    <input type="text" id="cust-address" placeholder="宅配收件地址" class="w-full px-3.5 py-2.5 rounded-xl border border-warm-300 focus:outline-none focus:border-warm-600 transition">
+                </div>
+
+                <div>
+                    <label class="text-[11px] text-warm-600 block mb-1">指定出爐 / 配送日期</label>
+                    <input type="date" id="cust-date" class="w-full px-3.5 py-2.5 rounded-xl border border-warm-300 focus:outline-none focus:border-warm-600 bg-white transition">
+                </div>
+            </div>
+
+            <!-- Price Breakdown -->
+            <div class="space-y-1 text-xs pt-2 border-t border-warm-200/80">
+                <div class="flex justify-between text-warm-700">
+                    <span>商品小計</span>
+                    <span id="cart-subtotal">$0</span>
+                </div>
+                <div class="flex justify-between text-warm-700">
+                    <span>運費/服務費</span>
+                    <span id="cart-shipping">$0</span>
+                </div>
+                <div class="flex justify-between font-bold text-warm-900 text-sm pt-1 border-t border-warm-200">
+                    <span>應付總金額</span>
+                    <span id="cart-total-price" class="text-amber-700 font-bold">$0</span>
+                </div>
+            </div>
+
+            <button onclick="processCheckout()" class="shimmer-btn cta-glow-pulse w-full py-3.5 rounded-xl bg-warm-800 hover:bg-warm-900 text-warm-50 font-bold text-sm shadow-lg active:scale-98 transition flex items-center justify-center gap-2">
+                <i data-lucide="check-circle" class="w-4 h-4 text-amber-400"></i>
+                <span>送出麵包預訂單</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Write Review Modal -->
+    <div id="review-modal" class="fixed inset-0 bg-warm-950/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-warm-200 space-y-5 transform scale-95 transition-transform duration-300">
+            <div class="flex items-center justify-between border-b border-warm-200 pb-3">
+                <h3 class="font-serif font-bold text-lg text-warm-900 flex items-center gap-2">
+                    <i data-lucide="heart" class="w-5 h-5 text-amber-600"></i>
+                    <span>撰寫品嚐心得</span>
+                </h3>
+                <button onclick="closeReviewModal()" class="w-8 h-8 rounded-full bg-warm-100 hover:bg-warm-200 flex items-center justify-center text-warm-800 transition">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <form onsubmit="handleReviewSubmit(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block text-warm-800 font-semibold mb-1">您的暱稱</label>
+                    <input type="text" id="rev-author" required placeholder="例：麵包控 / Sophie" class="w-full px-3.5 py-2.5 rounded-xl border border-warm-300 focus:outline-none focus:border-warm-600 transition">
+                </div>
+
+                <div>
+                    <label class="block text-warm-800 font-semibold mb-1">品嚐的麵包品項</label>
+                    <select id="rev-product" class="w-full px-3.5 py-2.5 rounded-xl border border-warm-300 focus:outline-none focus:border-warm-600 bg-white transition">
+                        <option value="經典裸麥酸種麵包">經典裸麥酸種麵包</option>
+                        <option value="法國蜂巢千層可頌">法國蜂巢千層可頌</option>
+                        <option value="岩鹽發酵奶油鹽可頌">岩鹽發酵奶油鹽可頌</option>
+                        <option value="博多明太子法國麵包">博多明太子法國麵包</option>
+                        <option value="極上北海道生吐司">極上北海道生吐司</option>
+                        <option value="法芙娜70%黑巧歐包">法芙娜70%黑巧歐包</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-warm-800 font-semibold mb-1">整體評分</label>
+                    <select id="rev-rating" class="w-full px-3.5 py-2.5 rounded-xl border border-warm-300 focus:outline-none focus:border-warm-600 bg-white transition">
+                        <option value="5">★★★★★ (5.0 驚艷美味)</option>
+                        <option value="4">★★★★☆ (4.0 非常喜歡)</option>
+                        <option value="3">★★★☆☆ (3.0 普通)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-warm-800 font-semibold mb-1">品嚐心得評語</label>
+                    <textarea id="rev-comment" required rows="3" placeholder="請分享麵包的外脆內軟口感、氣孔與麥香層次..." class="w-full px-3.5 py-2.5 rounded-xl border border-warm-300 focus:outline-none focus:border-warm-600 transition"></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-xl bg-warm-800 hover:bg-warm-900 text-warm-50 font-bold text-xs shadow-md transition">
+                    送出評價
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div id="order-success-modal" class="fixed inset-0 bg-warm-950/70 backdrop-blur-xs z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl text-center space-y-5 border border-warm-200">
+            <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center text-3xl shadow-sm">
+                ✓
+            </div>
+            <div class="space-y-1">
+                <h3 class="font-serif font-bold text-2xl text-warm-900">預訂成功！</h3>
+                <p class="text-xs text-warm-600">已為您排入今日烘焙工單</p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-warm-50 text-left text-xs space-y-2 border border-warm-200">
+                <div class="flex justify-between">
+                    <span class="text-warm-600">預訂單號：</span>
+                    <span id="res-order-id" class="font-mono font-bold text-warm-900">BK-20261002</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-warm-600">訂購人：</span>
+                    <span id="res-cust-name" class="font-bold text-warm-900">--</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-warm-600">取貨方式：</span>
+                    <span id="res-method" class="font-bold text-amber-700">--</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-warm-600">指定日期：</span>
+                    <span id="res-date" class="font-bold text-warm-900">--</span>
+                </div>
+                <div class="flex justify-between border-t border-warm-200 pt-2">
+                    <span class="text-warm-600">總金額：</span>
+                    <span id="res-total" class="font-bold text-warm-900 text-sm">$0</span>
+                </div>
+            </div>
+
+            <button onclick="closeSuccessModal()" class="w-full py-3 rounded-xl bg-warm-800 hover:bg-warm-900 text-warm-50 font-bold text-xs shadow-md transition">
+                回到首頁
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast Notification System -->
+    <div id="toast" class="fixed bottom-20 md:bottom-6 left-1/2 -translate-x-1/2 bg-warm-900 text-amber-100 px-5 py-3 rounded-2xl shadow-2xl z-50 text-xs font-medium border border-amber-500/30 flex items-center gap-2 opacity-0 pointer-events-none transition-all duration-300">
+        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+        <span id="toast-msg">已成功加入預訂車</span>
+    </div>
+
+    <footer class="bg-warm-950 text-warm-300 text-xs py-12 border-t border-warm-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 pb-6 border-b border-warm-900 text-center md:text-left">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-amber-500 text-warm-950 flex items-center justify-center font-serif font-bold text-lg shadow-md">
+                        麥
+                    </div>
+                    <div>
+                        <span class="font-serif font-bold text-base text-amber-200 block leading-tight">麥香日和 ‧ 職人手作麵包專賣店</span>
+                        <span class="text-[10px] tracking-widest text-warm-400 font-sans uppercase">Wheat Field Bakery Co., Ltd.</span>
+                    </div>
+                </div>
+                <p class="text-warm-400 text-xs max-w-md leading-relaxed">
+                    每日雙時段現烤出爐 ‧ 法國AOP發酵奶油 ‧ 72小時天然魯邦野生酵母熟成
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-warm-300 pt-2">
+                <div class="space-y-3">
+                    <h4 class="font-serif font-bold text-sm text-amber-300 flex items-center gap-2">
+                        <i data-lucide="phone-call" class="w-4 h-4 text-amber-500"></i>
+                        <span>店家聯絡與客服</span>
+                    </h4>
+                    <ul class="space-y-2 text-xs text-warm-300">
+                        <li class="flex items-center gap-2">
+                            <span class="text-warm-400">客服專線：</span>
+                            <a href="tel:0227118888" class="text-amber-200 hover:underline font-mono">(02) 2711-8888</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-warm-400">大宗預訂：</span>
+                            <a href="tel:0912345678" class="text-amber-200 hover:underline font-mono">0912-345-678</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-warm-400">電子信箱：</span>
+                            <a href="mailto:service@wheatfieldbakery.com.tw" class="text-amber-200 hover:underline">service@wheatfieldbakery.com.tw</a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-warm-400">服務時間：</span>
+                            <span>週一至週日 09:30 - 20:30</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="font-serif font-bold text-sm text-amber-300 flex items-center gap-2">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-amber-500"></i>
+                        <span>門市據點地址</span>
+                    </h4>
+                    <div class="space-y-2.5 text-xs text-warm-300">
+                        <div>
+                            <p class="font-bold text-amber-100">📍 台北敦南旗艦店</p>
+                            <p class="text-warm-400">台北市大安區敦化南路一段 188 號</p>
+                            <p class="text-warm-400">電話：(02) 2711-8888 ｜ 出爐：11:30 / 14:30</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-amber-100">📍 台中草悟道概念店</p>
+                            <p class="text-warm-400">台中市西區公益路二段 66 號</p>
+                            <p class="text-warm-400">電話：(04) 2328-9999 ｜ 出爐：11:30 / 14:30</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="font-serif font-bold text-sm text-amber-300 flex items-center gap-2">
+                        <i data-lucide="store" class="w-4 h-4 text-amber-500"></i>
+                        <span>企業與發票資訊</span>
+                    </h4>
+                    <ul class="space-y-2 text-xs text-warm-300">
+                        <li><span class="text-warm-400">公司名稱：</span>麥香日和股份有限公司</li>
+                        <li><span class="text-warm-400">統一編號：</span>88392014</li>
+                        <li><span class="text-warm-400">食品業者登錄字號：</span>A-188392014-00000-2</li>
+                        <li><span class="text-warm-400">投保產品責任險：</span>富邦產物保險 1,000 萬元</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-warm-900 flex flex-col sm:flex-row items-center justify-between text-[11px] text-warm-500 gap-2">
+                <p>&copy; 2026 Wheat Field Bakery Co. All rights reserved.</p>
+                <p>麥香日和 ‧ 職人手作麵包專賣店</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Application JavaScript Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateInput = document.getElementById('cust-date');
+            if (dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.value = today;
+                dateInput.min = today;
+            }
+        });
+
+        // Hero Photos with Strictly Matched Captions & Descriptions
+        const heroPhotoData = [
+            {
+                src: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=80',
+                tag: '🌾 歐式石臼酸種',
+                title: '經典裸麥葵花籽酸種麵包',
+                desc: '野生魯邦酵母 72 小時低溫發酵，表皮薄脆富含葵花籽與穀物麥香，氣孔濕潤酸香迷人。',
+                topBadge: '🌾 石臼低溫磨粉 ‧ 魯邦野生酵母發酵',
+                badgeTitle: '石臼酸種 ‧ 穀物麥香',
+                badgeSub: '自然發酵大氣孔 ‧ 越咀嚼越甜'
+            },
+            {
+                src: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=1200&q=80',
+                tag: '🥐 法國蜂巢可頌',
+                title: '法國 Ispahan AOP 蜂巢千層可頌',
+                desc: '嚴選法國伊斯尼 AOP 發酵奶油，手工折疊 27 層完美蜂巢結構，一口咬下酥脆化口爆出濃郁奶香。',
+                topBadge: '🥐 法國 AOP 奶油認證 ‧ 27層蜂巢結構',
+                badgeTitle: '極致酥脆 ‧ 奶香爆發',
+                badgeSub: '咬下咔滋脆聲 ‧ 經典法式優雅'
+            },
+            {
+                src: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=1200&q=80',
+                tag: '🥖 職人法式歐包',
+                title: '手作石臼柴燒風味短歐包',
+                desc: '外皮金黃香脆、質地富含彈性與小麥甜味，適合搭配發酵奶油、冷肉切片或佐濃湯享用。',
+                topBadge: '🥖 傳統歐式柴燒風 ‧ 日本熊本麥粉使用',
+                badgeTitle: '天然麥香 ‧ 嚼勁十足',
+                badgeSub: '無負擔純粹口感 ‧ 每日佐餐首選'
+            },
+            {
+                src: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=1200&q=80',
+                tag: '🧈 博多明太子短法',
+                title: '現烤博多明太子發酵奶油短法',
+                desc: '塗滿滿滿日本博多明太子醬與特調發酵奶油，高溫快速烘烤呈現極致鹹香與酥脆口感。',
+                topBadge: '🧈 日本博多直送明太子 ‧ 現烤鹹香誘惑',
+                badgeTitle: '鹹香濃郁 ‧ 下酒佐茶',
+                badgeSub: '外脆內 Q 夾心滿溢 ‧ 食客回購 No.1'
+            }
+        ];
+
+        let currentHeroPhotoIndex = 0;
+
+        // Refresh Hero Photo with Dynamic Text Syncing
+        function refreshHeroPhoto() {
+            const heroImg = document.getElementById('hero-toast-img');
+            const loading = document.getElementById('hero-loading');
+            
+            loading.classList.remove('hidden');
+
+            setTimeout(() => {
+                currentHeroPhotoIndex = (currentHeroPhotoIndex + 1) % heroPhotoData.length;
+                const currentData = heroPhotoData[currentHeroPhotoIndex];
+
+                heroImg.src = currentData.src;
+
+                // Sync image overlay info
+                document.getElementById('hero-img-tag').innerText = currentData.tag;
+                document.getElementById('hero-img-title').innerText = currentData.title;
+                document.getElementById('hero-img-desc').innerText = currentData.desc;
+
+                // Sync main hero left badges
+                document.getElementById('hero-top-badge').innerText = currentData.topBadge;
+                document.getElementById('hero-badge-title').innerText = currentData.badgeTitle;
+                document.getElementById('hero-badge-sub').innerText = currentData.badgeSub;
+
+                loading.classList.add('hidden');
+                showToast(`已切換出爐實拍照：「${currentData.title}」`);
+            }, 600);
+        }
+
+        // Diverse Bakery Menu Data
+        const products = [
+            {
+                id: 'b1',
+                category: '歐式酸種',
+                name: '經典裸麥酸種麵包',
+                enName: 'Artisanal Rye Sourdough',
+                price: 160,
+                desc: '野生魯邦種酵母 72 小時低溫熟成，表皮微脆薄韌，內餡濕潤具絕佳酸香氣孔。',
+                img: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=800&q=80',
+                tag: '主廚招牌',
+                options: ['切片 (約1.5cm)', '整顆不切']
+            },
+            {
+                id: 'b2',
+                category: '千層丹麥',
+                name: '法國蜂巢千層可頌',
+                enName: 'French Honeycomb Croissant',
+                price: 85,
+                desc: '採用法國 Ispahan AOP 奶油，折疊 27 層完美蜂巢結構，外層極致酥脆、奶香濃郁。',
+                img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80',
+                tag: '人氣狂銷',
+                options: ['單顆裝', '4入精裝盒 ($320)']
+            },
+            {
+                id: 'b3',
+                category: '日式鹹甜烘焙',
+                name: '岩鹽發酵奶油鹽可頌',
+                enName: 'Sea Salt Butter Roll',
+                price: 65,
+                desc: '日本熊本麵粉包覆法國發酵奶油，底層微焦脆香，灑上鹽之花，鹹甜平衡涮嘴。',
+                img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80',
+                tag: '回購率No.1',
+                options: ['單顆裝', '5入分享包 ($300)']
+            },
+            {
+                id: 'b4',
+                category: '日式鹹甜烘焙',
+                name: '博多明太子法國麵包',
+                enName: 'Hakata Mentaiko Baguette',
+                price: 120,
+                desc: '外脆內Q的短法國，塗滿特調日本博多明太子醬與發酵奶油，咬下鮮美鹹香。',
+                img: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=800&q=80',
+                tag: '鹹香首選',
+                options: ['整條切段', '整條不切']
+            },
+            {
+                id: 'b5',
+                category: '極上生吐司',
+                name: '極上北海道生吐司',
+                enName: 'Hokkaido Pure Shokupan',
+                price: 180,
+                desc: '北海道十勝鮮乳 100% 使用，湯种鎖水工藝，雲朵般拉絲柔軟，連邊都綿密。',
+                img: 'https://images.unsplash.com/photo-1584776296944-ab6fb57b0bdd?auto=format&fit=crop&w=800&q=80',
+                tag: '經典必吃',
+                options: ['黃金厚切 (2.8cm)', '整條不切']
+            },
+            {
+                id: 'b6',
+                category: '歐式酸種',
+                name: '法芙娜70%黑巧歐包',
+                enName: 'Valrhona Chocolate Loaf',
+                price: 145,
+                desc: '融入法芙娜 70% 苦甜黑巧克力塊與堅果，回烤後呈現半融化濃郁夾心。',
+                img: 'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=800&q=80',
+                tag: '限定特調',
+                options: ['對半切片', '整顆不切']
+            }
+        ];
+
+        // Dynamic Reviews Data
+        let reviews = [
+            { id: 1, author: 'Sophie Chen', product: '經典裸麥酸種麵包', rating: 5, text: '這是我在台灣吃到最接近巴黎品質的酸種！表皮脆香，內餡氣孔非常漂亮，稍微烤過抹奶油絕配。', date: '2026-09-29' },
+            { id: 2, author: '張先生', product: '法國蜂巢千層可頌', rating: 5, text: '蜂巢孔洞非常均勻，輕咬第一口那個奶油香與酥脆聲太療癒了！每週都線上預訂 4 入盒裝。', date: '2026-09-30' },
+            { id: 3, author: 'Emma Lin', product: '岩鹽發酵奶油鹽可頌', rating: 5, text: '底部的奶油脆皮是靈魂！鹽之花帶出的鹹甜感讓人欲罷不能，每次出爐都秒殺。', date: '2026-10-01' },
+            { id: 4, author: 'David K.', product: '博多明太子法國麵包', rating: 5, text: '明太子醬給得很大方，烤過之後香氣爆棚，口感外酥內Q，配啤酒或當早餐都超讚！', date: '2026-10-01' },
+            { id: 5, author: '劉小姐', product: '極上北海道生吐司', rating: 5, text: '真的如雲朵般綿密！撕開那個拉絲感太震撼了，給家裡老人家和小孩吃都非常放心。', date: '2026-10-02' },
+            { id: 6, author: '陳律師', product: '法芙娜70%黑巧歐包', rating: 5, text: '巧克力微苦不甘甜，高雅的高級感，歐包的嚼勁與堅果香氣完美融合！', date: '2026-10-02' }
+        ];
+
+        // Global State
+        let cart = [];
+        let currentCategory = 'all';
+        let deliveryMethod = 'pickup';
+
+        // Render Product Cards
+        function renderProducts() {
+            const container = document.getElementById('product-grid');
+            if (!container) return;
+
+            let filtered = products;
+            if (currentCategory !== 'all') {
+                filtered = products.filter(p => p.category === currentCategory);
+            }
+
+            container.innerHTML = filtered.map(p => `
+                <div class="bg-white rounded-3xl p-5 border border-warm-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="relative h-52 rounded-2xl overflow-hidden bg-warm-100 mb-4">
+                            <img src="${p.img}" onerror="this.src='https://placehold.co/800x600/EBDCBF/623C1B?text=Fresh+Bakery'" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-3 left-3 bg-warm-900/90 text-amber-300 text-[10px] font-bold px-3 py-1 rounded-full backdrop-blur-xs shadow-xs">
+                                ${p.tag}
+                            </span>
+                            <span class="absolute bottom-3 right-3 bg-white/90 text-warm-800 text-[10px] font-bold px-2.5 py-0.5 rounded-md backdrop-blur-xs">
+                                ${p.category}
+                            </span>
+                        </div>
+                        
+                        <div class="space-y-1">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-serif font-bold text-lg text-warm-900">${p.name}</h3>
+                                <span class="font-serif font-bold text-amber-800 text-base">$${p.price}</span>
+                            </div>
+                            <p class="text-[10px] text-warm-500 font-mono tracking-wider uppercase">${p.enName}</p>
+                            <p class="text-xs text-warm-600 leading-relaxed pt-2">${p.desc}</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 pt-4 border-t border-warm-100 space-y-3">
+                        <div class="flex items-center justify-between gap-2 text-xs">
+                            <span class="text-warm-700 text-[11px] font-medium">包裝/切片：</span>
+                            <select id="option-${p.id}" class="px-2.5 py-1.5 rounded-xl bg-warm-50 border border-warm-200 text-warm-800 font-medium text-[11px] focus:outline-none focus:border-warm-600 transition">
+                                ${p.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+                            </select>
+                        </div>
+
+                        <button onclick="addToCart('${p.id}')" class="w-full py-2.5 rounded-xl bg-warm-800 hover:bg-warm-900 text-warm-50 text-xs font-semibold shadow-sm active:scale-95 transition flex items-center justify-center gap-1.5">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                            <span>加入預訂車</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        // Category Filter Helper
+        function filterCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-warm-800', 'text-white', 'border-warm-800');
+                btn.classList.add('bg-white', 'text-warm-800', 'border-warm-300');
+            });
+
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.remove('bg-white', 'text-warm-800', 'border-warm-300');
+                event.currentTarget.classList.add('bg-warm-800', 'text-white', 'border-warm-800');
+            }
+
+            renderProducts();
+        }
+
+        // Render Customer Reviews
+        function renderReviews(filter = 'all') {
+            const container = document.getElementById('reviews-container');
+            if (!container) return;
+
+            let filtered = reviews;
+            if (filter !== 'all') {
+                filtered = reviews.filter(r => r.product === filter);
+            }
+
+            const countEl = document.getElementById('count-all');
+            if (countEl) countEl.innerText = reviews.length;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="col-span-3 text-center py-12 text-warm-500 text-xs">目前尚無此品項評價，歡迎您品嚐後留下第一個好評！</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(r => `
+                <div class="bg-white p-5 rounded-2xl border border-warm-200 shadow-xs hover:shadow-md transition space-y-3">
+                    <div class="flex items-center justify-between border-b border-warm-100 pb-2.5">
+                        <div class="flex items-center gap-2">
+                            <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-900 font-bold flex items-center justify-center text-xs">
+                                ${r.author.charAt(0)}
+                            </div>
+                            <div>
+                                <p class="font-bold text-xs text-warm-900">${r.author}</p>
+                                <p class="text-[10px] text-warm-500">${r.date}</p>
+                            </div>
+                        </div>
+                        <div class="text-amber-500 text-xs tracking-wider">★★★★★</div>
+                    </div>
+                    <span class="inline-block px-2.5 py-0.5 rounded-md bg-warm-100 text-warm-800 text-[10px] font-semibold">
+                        ${r.product}
+                    </span>
+                    <p class="text-xs text-warm-700 leading-relaxed">${r.text}</p>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        // Review Filter Action
+        function filterReviews(productName) {
+            document.querySelectorAll('.review-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-warm-800', 'text-white', 'border-warm-800');
+                btn.classList.add('bg-white', 'text-warm-800', 'border-warm-300');
+            });
+
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.remove('bg-white', 'text-warm-800', 'border-warm-300');
+                event.currentTarget.classList.add('bg-warm-800', 'text-white', 'border-warm-800');
+            }
+
+            renderReviews(productName);
+        }
+
+        // Cart Actions
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const optSelect = document.getElementById(`option-${productId}`);
+            const selectedOption = optSelect ? optSelect.value : product.options[0];
+
+            const existingIndex = cart.findIndex(item => item.id === productId && item.option === selectedOption);
+
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    img: product.img,
+                    option: selectedOption,
+                    qty: 1
+                });
+            }
+
+            updateCartUI();
+            showToast(`已加入「${product.name}」至預訂車`);
+        }
+
+        function changeQty(index, delta) {
+            if (cart[index]) {
+                cart[index].qty += delta;
+                if (cart[index].qty <= 0) {
+                    cart.splice(index, 1);
+                }
+                updateCartUI();
+            }
+        }
+
+        function setDeliveryMethod(method) {
+            deliveryMethod = method;
+            const btnPickup = document.getElementById('btn-method-pickup');
+            const btnExpress = document.getElementById('btn-method-express');
+            const storeWrap = document.getElementById('pickup-store-select-wrap');
+            const addressWrap = document.getElementById('express-address-wrap');
+
+            if (method === 'pickup') {
+                btnPickup.className = 'p-2.5 rounded-xl border border-warm-800 bg-warm-800 text-white font-semibold flex items-center justify-center gap-1.5 transition';
+                btnExpress.className = 'p-2.5 rounded-xl border border-warm-300 bg-white text-warm-800 font-semibold flex items-center justify-center gap-1.5 transition';
+                storeWrap.classList.remove('hidden');
+                addressWrap.classList.add('hidden');
+            } else {
+                btnExpress.className = 'p-2.5 rounded-xl border border-warm-800 bg-warm-800 text-white font-semibold flex items-center justify-center gap-1.5 transition';
+                btnPickup.className = 'p-2.5 rounded-xl border border-warm-300 bg-white text-warm-800 font-semibold flex items-center justify-center gap-1.5 transition';
+                storeWrap.classList.add('hidden');
+                addressWrap.classList.remove('hidden');
+            }
+
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const badgeCount = document.getElementById('cart-badge-count');
+            const mobileBadge = document.getElementById('mobile-cart-badge');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            const shippingEl = document.getElementById('cart-shipping');
+            const totalEl = document.getElementById('cart-total-price');
+
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            if (badgeCount) badgeCount.innerText = totalQty;
+            if (mobileBadge) mobileBadge.innerText = totalQty;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center p-8 text-warm-400 space-y-3">
+                        <i data-lucide="shopping-bag" class="w-12 h-12 stroke-1"></i>
+                        <p class="text-sm font-medium text-warm-600">您的麵包預訂車目前是空的</p>
+                        <p class="text-xs">挑選現烤麵包，享受極致麥香與酥脆口感！</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = cart.map((item, index) => `
+                    <div class="flex gap-3 bg-warm-50/60 p-3 rounded-2xl border border-warm-200/80 items-center">
+                        <img src="${item.img}" alt="${item.name}" class="w-16 h-16 rounded-xl object-cover">
+                        <div class="flex-grow space-y-1">
+                            <h4 class="font-serif font-bold text-xs text-warm-900">${item.name}</h4>
+                            <p class="text-[10px] text-warm-600">${item.option}</p>
+                            <span class="font-serif font-bold text-amber-800 text-xs">$${item.price}</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white rounded-xl border border-warm-200 px-2 py-1">
+                            <button onclick="changeQty(${index}, -1)" class="text-warm-700 hover:text-warm-900 font-bold px-1 text-xs">-</button>
+                            <span class="text-xs font-bold text-warm-900 w-4 text-center">${item.qty}</span>
+                            <button onclick="changeQty(${index}, 1)" class="text-warm-700 hover:text-warm-900 font-bold px-1 text-xs">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            let shipping = 0;
+
+            if (deliveryMethod === 'express' && cart.length > 0) {
+                shipping = subtotal >= 1000 ? 0 : 160;
+            }
+
+            const grandTotal = subtotal + shipping;
+
+            if (subtotalEl) subtotalEl.innerText = `$${subtotal}`;
+            if (shippingEl) shippingEl.innerText = deliveryMethod === 'express' ? (shipping === 0 ? '免運優惠' : `$${shipping}`) : '$0 (門市自取)';
+            if (totalEl) totalEl.innerText = `$${grandTotal}`;
+
+            lucide.createIcons();
+        }
+
+        // Toggle Cart Drawer & Mobile Menu
+        function toggleCartDrawer(open) {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('cart-drawer-overlay');
+
+            if (open) {
+                drawer.classList.remove('translate-x-full');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-nav-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Process Checkout
+        function processCheckout() {
+            if (cart.length === 0) {
+                showToast('您的預訂車內尚無商品！');
+                return;
+            }
+
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const date = document.getElementById('cust-date').value;
+
+            if (!name || !phone) {
+                showToast('請填寫訂購人姓名與聯絡電話');
+                return;
+            }
+
+            const orderId = 'BK-' + Math.floor(100000 + Math.random() * 900000);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const shipping = deliveryMethod === 'express' ? (subtotal >= 1000 ? 0 : 160) : 0;
+
+            document.getElementById('res-order-id').innerText = orderId;
+            document.getElementById('res-cust-name').innerText = name;
+            document.getElementById('res-method').innerText = deliveryMethod === 'express' ? '冷藏宅配' : `門市自取 (${document.getElementById('cust-store').value})`;
+            document.getElementById('res-date').innerText = date || '今日出爐';
+            document.getElementById('res-total').innerText = `$${subtotal + shipping}`;
+
+            toggleCartDrawer(false);
+            
+            const modal = document.getElementById('order-success-modal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+
+            cart = [];
+            updateCartUI();
+        }
+
+        function closeSuccessModal() {
+            const modal = document.getElementById('order-success-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        // Review Modal Handlers
+        function openReviewModal() {
+            const modal = document.getElementById('review-modal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeReviewModal() {
+            const modal = document.getElementById('review-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function handleReviewSubmit(e) {
+            e.preventDefault();
+            const author = document.getElementById('rev-author').value.trim();
+            const product = document.getElementById('rev-product').value;
+            const rating = parseInt(document.getElementById('rev-rating').value);
+            const text = document.getElementById('rev-comment').value.trim();
+
+            if (!author || !text) return;
+
+            const newReview = {
+                id: reviews.length + 1,
+                author: author,
+                product: product,
+                rating: rating,
+                text: text,
+                date: new Date().toISOString().split('T')[0]
+            };
+
+            reviews.unshift(newReview);
+            renderReviews('all');
+            closeReviewModal();
+            showToast('感謝您的品嚐心得與好評！');
+
+            document.getElementById('rev-author').value = '';
+            document.getElementById('rev-comment').value = '';
+        }
+
+        // Toast Helper
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            toastMsg.innerText = msg;
+
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 2500);
+        }
+
+        // Throttled Scroll Progress Handler
+        let ticking = false;
+
+        function updateScrollEffects() {
+            const scrolled = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            
+            // Scroll Progress Bar Update
+            const scrollPercent = docHeight > 0 ? (scrolled / docHeight) * 100 : 0;
+            const progressBar = document.getElementById('scroll-progress-bar');
+            if (progressBar) {
+                progressBar.style.width = `${scrollPercent}%`;
+            }
+
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updateScrollEffects);
+                ticking = true;
+            }
+        });
+
+        // IntersectionObserver for High Performance Scroll Reveals
+        function setupScrollReveals() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -80px 0px',
+                threshold: 0.12
+            };
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.parallax-reveal').forEach(el => observer.observe(el));
+        }
+
+        // Mouse Parallax Perspective Effect on Hero Card
+        const heroSection = document.getElementById('hero-section');
+        const tiltCard = document.getElementById('hero-tilt-card');
+
+        if (heroSection && tiltCard) {
+            heroSection.addEventListener('mousemove', (e) => {
+                const { left, top, width, height } = heroSection.getBoundingClientRect();
+                const x = (e.clientX - left) / width - 0.5;
+                const y = (e.clientY - top) / height - 0.5;
+
+                tiltCard.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateZ(10px)`;
+            });
+
+            heroSection.addEventListener('mouseleave', () => {
+                tiltCard.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) translateZ(0px)`;
+            });
+        }
+
+        // Initialize Page
+        window.onload = () => {
+            renderProducts();
+            renderReviews();
+            updateCartUI();
+            setupScrollReveals();
+            updateScrollEffects();
+        };
+    </script>
+</body>
+</html>
